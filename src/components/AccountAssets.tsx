@@ -6,13 +6,20 @@ import { IAssetData } from "../helpers/types";
 const AccountAssets = (props: any) => {
   const { assets, chainId } = props;
   const defaultNativeCurrency: IAssetData =
-    chainId === 100
+    chainId === 80001 || chainId === 137
       ? {
-          contractAddress: "",
-          symbol: "xDAI",
-          name: "xDAI",
-          decimals: "18",
+          // chainId===100
+          // contractAddress: "",
+          // symbol: "xDAI",
+          // name: "xDAI",
+          // decimals: "18",
+          // balance: "0",
+
           balance: "0",
+          contractAddress: "",
+          decimals: "18",
+          name: "Polygon",
+          symbol: "MATIC",
         }
       : {
           contractAddress: "",
@@ -40,6 +47,8 @@ const AccountAssets = (props: any) => {
         : false,
     );
   }
+
+  console.log("<<<<<Token>>>>", tokens);
   return (
     <Column center>
       <AssetRow key={nativeCurrency.name} asset={nativeCurrency} />

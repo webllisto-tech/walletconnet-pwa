@@ -15,7 +15,7 @@ import {
   apiGetAccountAssets,
   apiGetAccountNonce,
   apiGetGasPrices,
-  getBalance,
+  GetBalance,
 } from "./helpers/api";
 import {
   hashMessage,
@@ -280,13 +280,17 @@ class App extends React.Component<any, any> {
       let assets: any = null;
       if (chainId === 1 || chainId === 5) {
         assets = await apiGetAccountAssets(address, chainId);
-        // balance: "559204094216191100";
-        // contractAddress: "";
-        // decimals: "18";
-        // name: "Ether";
-        // symbol: "ETH";
       } else {
-        assets = await getBalance(address, chainId);
+        const balance = await GetBalance(address, chainId);
+        assets = [
+          {
+            balance,
+            contractAddress: "",
+            decimals: "18",
+            name: "Polygon",
+            symbol: "MATIC",
+          },
+        ];
       }
       console.log(assets, "!!!<getBalance>!!!!");
 

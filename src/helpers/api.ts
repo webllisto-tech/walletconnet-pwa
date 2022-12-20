@@ -46,14 +46,19 @@ export const Nonce = async (chainId: number, address: string): Promise<any> => {
   return nonce;
 };
 
-export const getBalance = async (address: string, chainId: number): Promise<any> => {
+export const GetBalance = async (address: string, chainId: number): Promise<any> => {
   const { provider } = await getProvider(chainId);
 
-  await provider.getBalance(address).then((balance: any) => {
-    // convert a currency unit from wei to ether
-    const balanceInEth = ethers.utils.formatEther(balance);
-    return balanceInEth;
-  });
+  const balance = await provider.getBalance(address);
+  const balanceInEth = ethers.utils.formatEther(balance);
+  return balanceInEth;
+
+  // await provider.getBalance(address).then( (balance: any) => {
+  //   // convert a currency unit from wei to ether
+  //   const balanceInEth =  ethers.utils.formatEther(balance);
+  //   // console.log("<>>>>>>>", balanceInEth);
+  //   return balanceInEth;
+  // });
 };
 
 export async function apiGetAccountAssets(address: string, chainId: number): Promise<IAssetData[]> {
