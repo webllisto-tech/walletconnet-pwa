@@ -16,6 +16,8 @@ const api: AxiosInstance = axios.create({
 export const getProvider = async (chainId: number): Promise<any> => {
   let rpc = "";
   const infuraApiKey = process.env.REACT_APP_INFURA_API_KEY;
+  const ploygonTestnetAlchemyApiKey = process.env.REACT_APP_POLYGON_TESTNET_ALCHEMY_API_KEY;
+  const ploygonMainnetAlchemyApiKey = process.env.REACT_APP_POLYGON_TESTNET_ALCHEMY_API_KEY;
 
   switch (chainId) {
     case 1: // ethereum mainnet
@@ -25,19 +27,16 @@ export const getProvider = async (chainId: number): Promise<any> => {
       rpc = `https://goerli.infura.io/v3/${infuraApiKey}`;
       break;
     case 80001: // polygon testnet (mumbai)
-      // rpc = "polygon-mumbai";
-      rpc = "https://polygon-mumbai.g.alchemy.com/v2/-R_LQlWBHp3wDfbx_Ca2p60mj1OfNgUI";
+      rpc = `https://polygon-mumbai.g.alchemy.com/v2/${ploygonTestnetAlchemyApiKey}`;
       break;
     case 137: // polygon mainet (mumbai)
-      // rpc = "polygon-mainnet";
-      rpc = "https://polygon-mainnet.g.alchemy.com/v2/yijq8aCcnsRKfPk41qixRZW66Y4zDq-d";
+      rpc = `https://polygon-mainnet.g.alchemy.com/v2/${ploygonMainnetAlchemyApiKey}`;
       break;
     default:
       rpc = `https://mainnet.infura.io/v3/${infuraApiKey}`;
   }
-  const infuraUrl = rpc;
 
-  const provider = new ethers.providers.JsonRpcProvider(infuraUrl);
+  const provider = new ethers.providers.JsonRpcProvider(rpc);
   return { provider };
 };
 

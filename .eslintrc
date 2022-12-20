@@ -23,8 +23,7 @@
     "space-before-function-paren": ["off"],
     "indent": ["off"],
     "no-console": ["off"],
-    "no-useless-catch": ["off"],
-    "no-debugger": "off"
+    "no-useless-catch": ["off"]
   },
   "settings": {
     "react": {
