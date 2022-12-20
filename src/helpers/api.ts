@@ -19,31 +19,31 @@ export const getProvider = async (chainId: number): Promise<any> => {
 
   switch (chainId) {
     case 1: // ethereum mainnet
-      rpc = "mainnet";
+      rpc = `https://mainnet.infura.io/v3/${infuraApiKey}`;
       break;
     case 5: // ethereum testnet
-      rpc = "goerli";
+      rpc = `https://goerli.infura.io/v3/${infuraApiKey}`;
       break;
     case 80001: // polygon testnet (mumbai)
-      rpc = "polygon-mumbai";
-      // rpc = "https://polygon-mumbai.g.alchemy.com/v2/-R_LQlWBHp3wDfbx_Ca2p60mj1OfNgUI";
+      // rpc = "polygon-mumbai";
+      rpc = "https://polygon-mumbai.g.alchemy.com/v2/-R_LQlWBHp3wDfbx_Ca2p60mj1OfNgUI";
       break;
     case 137: // polygon mainet (mumbai)
-      rpc = "polygon-mainnet";
-      // rpc = "https://polygon-mainnet.g.alchemy.com/v2/yijq8aCcnsRKfPk41qixRZW66Y4zDq-d";
+      // rpc = "polygon-mainnet";
+      rpc = "https://polygon-mainnet.g.alchemy.com/v2/yijq8aCcnsRKfPk41qixRZW66Y4zDq-d";
       break;
     default:
-      rpc = "mainnet";
+      rpc = `https://mainnet.infura.io/v3/${infuraApiKey}`;
   }
-  const infuraUrl = `https://${rpc}.infura.io/v3/${infuraApiKey}`;
+  const infuraUrl = rpc;
 
   const provider = new ethers.providers.JsonRpcProvider(infuraUrl);
   return { provider };
 };
 
-export const Nonce = async (chainId: number): Promise<any> => {
+export const Nonce = async (chainId: number, address: string): Promise<any> => {
   const { provider } = await getProvider(chainId);
-  const nonce = await provider.getTransactionCount("ricmoo.eth");
+  const nonce = await provider.getTransactionCount(address);
   return nonce;
 };
 
@@ -73,7 +73,7 @@ export async function apiGetAccountTransactions(
 }
 
 export const apiGetAccountNonce = async (address: string, chainId: number): Promise<string> => {
-  return await Nonce(chainId);
+  return await Nonce(chainId, address);
 
   //   const response = await api.get(`/account-nonce?address=${address}&chainId=${chainId}`);
   //   const { result } = response.data;
